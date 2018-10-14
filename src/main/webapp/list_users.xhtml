@@ -1,0 +1,23 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/WEB-INF/templates/main.xhtml">
+    <ui:define name="content">
+
+        <h:dataTable styleClass="table table-striped table-hover"
+                     value="#{listUsers.users}" var="user">
+            <h:column>
+                <h:outputText value="#{user.id}"/>
+            </h:column>
+
+            <h:column>
+                <h:outputText value="#{user.name}"/>
+            </h:column>
+            
+            <h:column>
+            	<h:outputText value="#{user.email}" />
+            </h:column>
+        </h:dataTable>
+
+    </ui:define>
+</ui:composition>

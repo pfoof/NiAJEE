@@ -1,0 +1,44 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/WEB-INF/templates/main.xhtml">
+    <f:metadata>
+        <f:viewParam name="keypart" value="#{editKeypart.keyPart}"/>
+    </f:metadata>
+
+    <ui:define name="content">
+        <h:form>
+            <h:panelGrid styleClass="table table-striped" columns="3">
+
+				<h:outputLabel value="UUID portfela:" for="uuid"/>
+               		<h:inputText styleClass="form-control" id="uuid" value="#{editKeypart.keyPart.walletUUID}"/>
+                <h:message for="uuid"/>
+
+				<h:outputLabel value="Waluta:" for="currency"/>
+				<h:selectOneListbox styleClass="form-control" id="currency" value="#{editKeypart.keyPart.currency}">
+                	<f:selectItems
+                		value="#{editKeypart.currencies}"
+                	 />
+                </h:selectOneListbox>
+                <h:message for="currency"/>
+
+                <h:outputLabel value="Właściciel:" for="owner"/>
+                <h:selectOneListbox styleClass="form-control" id="owner" value="#{editKeypart.keyPart.owner}">
+                	<f:selectItems
+                		value="#{editKeypart.availableUsers}"
+                		var="user"
+                		itemLabel="#{user.name} &lt;#{user.email}&gt;"
+                		itemValue="#{user}"
+                	 />
+                </h:selectOneListbox>
+                <h:message for="owner"/>
+            </h:panelGrid>
+
+            <h:commandButton styleClass="btn btn-primary" value="Zapisz"
+                             action="#{editKeypart.saveKeypart()}"/>
+            <h:button styleClass="btn btn-default ml-1" value="Powrót" outcome="list_keyparts.xhtml"/>
+        </h:form>
+
+    </ui:define>
+</ui:composition>

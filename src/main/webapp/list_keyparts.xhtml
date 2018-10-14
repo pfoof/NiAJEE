@@ -1,0 +1,45 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/WEB-INF/templates/main.xhtml">
+    <ui:define name="content">
+
+        <h:dataTable styleClass="table table-striped table-hover"
+                     value="#{listKeyparts.keyparts}" var="kp">
+            <h:column>
+                <h:outputText value="#{kp.id}"/>
+            </h:column>
+            
+            <h:column>
+                <h:outputText value="#{kp.owner.email}" />
+            </h:column>
+
+            <h:column>
+                <h:button styleClass="btn btn-default" value="Pokaż" outcome="view_keypart.xhtml">
+                    <f:param name="keyPart" value="#{kp.id}"/>
+                </h:button>
+            </h:column>
+
+            <h:column>
+                <h:button styleClass="btn btn-default" value="Edytuj" outcome="edit_keypart.xhtml">
+                    <f:param name="keypart" value="#{kp.id}"/>
+                </h:button>
+            </h:column>
+
+            <h:column>
+                <!--<form action="/delete/">-->
+                <!--<input type="hidden" name="id" value="2"/>-->
+                <!--<input type="submit"/>-->
+                <!--</form>-->
+                <h:form>
+                    <h:commandButton styleClass="btn btn-danger" value="Usuń"
+                                     action="#{listKeyparts.removeKeypart(kp)}"/>
+                </h:form>
+            </h:column>
+        </h:dataTable>
+
+        <h:button  styleClass="btn btn-primary" value="Nowy klucz" outcome="edit_keypart.xhtml"/>
+
+    </ui:define>
+</ui:composition>

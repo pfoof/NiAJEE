@@ -1,0 +1,46 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/WEB-INF/templates/main.xhtml">
+    <f:metadata>
+        <f:viewParam name="rate" value="#{editRate.rate}"/>
+    </f:metadata>
+
+    <ui:define name="content">
+        <h:form>
+            <h:panelGrid styleClass="table table-striped" columns="3">
+
+				<h:outputLabel value="Waluta z:" for="currencyFrom"/>
+				<h:selectOneListbox styleClass="form-control" id="currencyFrom"
+					 value="#{editRate.rate.from}">
+                	<f:selectItems
+                		value="#{editRate.currencies}"
+                	 />
+                </h:selectOneListbox>
+                <h:message for="currencyFrom"/>
+                
+                <h:outputLabel value="Waluta do:" for="currencyTo"/>
+				<h:selectOneListbox styleClass="form-control" id="currencyTo"
+					 value="#{editRate.rate.to}">
+                	<f:selectItems
+                		value="#{editRate.currencies}"
+                	 />
+                </h:selectOneListbox>
+                <h:message for="currencyTo"/>
+
+               	<h:outputLabel value="Stosunek:" for="ratio"/>
+                	<h:inputText styleClass="form-control" id="ratio" value="#{editRate.rate.ratio}">
+                		<f:convertNumber pattern="0.00000"/>
+                	</h:inputText>
+                <h:message for="ratio"/>
+                
+            </h:panelGrid>
+
+            <h:commandButton styleClass="btn btn-primary" value="Zapisz"
+                             action="#{editRate.saveRate()}"/>
+            <h:button styleClass="btn btn-default ml-1" value="Powrót" outcome="list_rates.xhtml"/>
+        </h:form>
+
+    </ui:define>
+</ui:composition>

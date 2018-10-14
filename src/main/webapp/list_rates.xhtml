@@ -1,0 +1,47 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/WEB-INF/templates/main.xhtml">
+    <ui:define name="content">
+
+        <h:dataTable styleClass="table table-striped table-hover"
+                     value="#{listRates.rates}" var="rate">
+            <h:column>
+                <h:outputText value="#{rate.id}"/>
+            </h:column>
+            
+            <h:column>
+            	<h:outputText value="#{rate.from}"/>
+            </h:column>
+            
+            <h:column>
+            	<h:outputText value="#{rate.to}"/>
+            </h:column>
+            
+            <h:column>
+            	<h:outputText value="#{rate.ratio}"/>
+            </h:column>
+
+            <h:column>
+                <h:button styleClass="btn btn-default" value="Edytuj" outcome="edit_rate.xhtml">
+                    <f:param name="rate" value="#{rate.id}"/>
+                </h:button>
+            </h:column>
+
+            <h:column>
+                <!--<form action="/delete/">-->
+                <!--<input type="hidden" name="id" value="2"/>-->
+                <!--<input type="submit"/>-->
+                <!--</form>-->
+                <h:form>
+                    <h:commandButton styleClass="btn btn-danger" value="Usuń"
+                                     action="#{listRates.removeRate(rate)}"/>
+                </h:form>
+            </h:column>
+        </h:dataTable>
+
+        <h:button  styleClass="btn btn-primary" value="Nowa pozycja" outcome="edit_rate.xhtml"/>
+
+    </ui:define>
+</ui:composition>
