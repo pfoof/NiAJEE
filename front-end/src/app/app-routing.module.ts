@@ -6,12 +6,11 @@ import {ListAuthorsComponent} from './components/list-authors/list-authors.compo
 import {EditBookComponent} from './components/edit-book/edit-book.component';
 
 const routes: Routes = [
-  { path: '', component: ListBooksComponent},
-  { path: 'keyparts/new', component: EditBookComponent},
-  { path: 'keyparts/:id', component: ViewBookComponent},
-  { path: 'keyparts/:id/edit', component: EditBookComponent},
-  { path: 'users', component: ListAuthorsComponent },
-  { path: 'users/:id', component: ListUsersComponent }
+  {path: '', component: ListBooksComponent},
+  {path: 'books/new', component: EditBookComponent},
+  {path: 'books/:id', component: ViewBookComponent},
+  {path: 'books/:id/edit', component: EditBookComponent},
+  {path: 'authors', component: ListAuthorsComponent},
 ];
 
 @NgModule({

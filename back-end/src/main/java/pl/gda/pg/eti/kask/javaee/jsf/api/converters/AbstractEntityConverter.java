@@ -1,29 +1,29 @@
 package pl.gda.pg.eti.kask.javaee.jsf.api.converters;
 
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Type;
-import java.util.function.BiFunction;
-import java.util.function.Function;
+import pl.gda.pg.eti.kask.javaee.jsf.business.boundary.BookService;
+import pl.gda.pg.eti.kask.javaee.jsf.business.entities.Book;
 
 import javax.inject.Inject;
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.ext.ParamConverter;
 import javax.ws.rs.ext.ParamConverterProvider;
-
-import pl.gda.pg.eti.kask.javaee.jsf.business.boundary.KeypartsService;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Type;
+import java.util.function.BiFunction;
+import java.util.function.Function;
 
 public abstract class AbstractEntityConverter<V> implements ParamConverterProvider {
 
     @Inject
-    KeypartsService keypartsService;
+    BookService bookService;
 
     Class<V> entityClass;
 
-    private BiFunction<KeypartsService, Integer, V> retrieveFunction;
+    private BiFunction<BookService, Integer, V> retrieveFunction;
 
     private Function<V, Integer> idExtractor;
 
-    AbstractEntityConverter(Class<V> entityClass, Function<V, Integer> idExtractor, BiFunction<KeypartsService, Integer, V> retrieveFunction) {
+    AbstractEntityConverter(Class<V> entityClass, Function<V, Integer> idExtractor, BiFunction<BookService, Integer, V> retrieveFunction) {
         this.entityClass = entityClass;
         this.retrieveFunction = retrieveFunction;
         this.idExtractor = idExtractor;
@@ -38,7 +38,7 @@ public abstract class AbstractEntityConverter<V> implements ParamConverterProvid
         return (ParamConverter<T>) new ParamConverter<V>() {
             @Override
             public V fromString(String value) {
-                V entity = retrieveFunction.apply(keypartsService, Integer.valueOf(value));
+                V entity = retrieveFunction.apply(bookService, Integer.valueOf(value));
 
                 if (entity == null) {
                     throw new NotFoundException();
@@ -48,8 +48,8 @@ public abstract class AbstractEntityConverter<V> implements ParamConverterProvid
             }
 
             @Override
-            public String toString(V entity) {
-                return idExtractor.apply(entity).toString();
+            public String toString(V book) {
+                return idExtractor.apply(book).toString();
             }
         };
     }
